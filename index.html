@@ -9,6 +9,7 @@
       margin: 0;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-family: sans-serif;
@@ -16,16 +17,48 @@
       color: white;
       transition: background 0.8s ease;
     }
+
+    #refresh-btn {
+      margin-top: 2rem;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      padding: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #refresh-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    #refresh-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
   </style>
 </head>
 <body>
   <div id="color-code">Loading...</div>
+  <button id="refresh-btn" onclick="refreshColor()" aria-label="Refresh">
+    <svg viewBox="0 0 24 24">
+      <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4V1L7 6l5 5V7c2.76 0 5 2.24 5 5a5 5 0 0 1-1.46 3.54l1.42 1.42A7 7 0 0 0 19 12c0-1.93-.78-3.68-2.05-4.95z"/>
+    </svg>
+  </button>
+
+  <audio id="wave-sound" src="steam.mp3" preload="auto"></audio>
 
   <script>
     function getRandomColor() {
       const color = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
       document.body.style.backgroundColor = color;
       document.getElementById("color-code").innerText = color;
+    }
+
+    function refreshColor() {
+      document.getElementById('wave-sound').play();
+      getRandomColor();
     }
 
     getRandomColor();
