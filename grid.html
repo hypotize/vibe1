@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>10×10 Color Grid</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      width: 100vw;
+      height: 100vh;
+    }
+    .cell {
+      background: white;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: background-color .15s ease;
+    }
+    .cell:active {
+      transform: scale(.98);
+    }
+  </style>
+</head>
+<body>
+  <div id="grid" class="grid"></div>
+  <script>
+    const gridEl = document.getElementById('grid');
+    const SIZE = 10;
+    for (let i = 0; i < SIZE * SIZE; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      gridEl.appendChild(cell);
+    }
+    function randomColor() {
+      const h = Math.floor(Math.random() * 360);
+      const s = 70;
+      const l = 55;
+      return `hsl(${h} ${s}% ${l}%)`;
+    }
+    function paint(el) {
+      if (!el || !el.classList.contains('cell')) return;
+      el.style.backgroundColor = randomColor();
+    }
+    gridEl.addEventListener('click', (e) => {
+      paint(e.target);
+    });
+  </script>
+</body>
+</html>
